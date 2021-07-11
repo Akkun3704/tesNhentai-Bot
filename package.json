@@ -1,0 +1,38 @@
+{
+    "name": "nHentai-project",
+    "version": "0.0.1",
+    "description": "project nhentai",
+    "main": "main.js",
+    "directories": {
+        "test": "test"
+    },
+    "dependencies": {
+        "telegraf": "*",
+        "axios": "^0.21.1",
+        "chalk": "*",
+        "nhentai": "*",
+        "image-to-pdf": "*",
+        "request": "*",
+        "fs": "*"
+    },
+    "devDependencies": {},
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node main.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/mccnlight/nHentai-project.git"
+    },
+    "keywords": [
+        "bot tele",
+        "nhentai",
+        "doujin"
+    ],
+    "author": "lintod",
+    "licensi": "MIT",
+    "bugs": {
+        "url": "https://github.com/mccnlight/nHentai-project.git"
+    },
+    "homepage": "https://github.com/mccnlight/nHentai-project.git"
+}
