@@ -52,8 +52,8 @@ bot.on('text', async lintod => {
       lintod.reply("Please wait, data is being processed");
       const get_result = new nhentai.API()
       const doujin = await get_result.fetchDoujin(id);
-      array_page = doujin.pages
-      title = doujin.titles.pretty
+      const array_page = doujin.pages
+      const title = doujin.titles.pretty
 
       for (let index = 0; index < array_page.length; index++) {
         image_name = "nhentai/" + title + index + ".jpg"
