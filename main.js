@@ -67,7 +67,7 @@ bot.on('text', async lintod => {
       await new Promise((resolve) =>
         topdf(ResultPdf, 'A4')
         .pipe(fs.createWriteStream('nhentai/' + title + '.pdf'))
-        .on('finish', resolve);
+        .on('finish', resolve)
       )
 
       for (let index = 0; index < array_page.length; index++) {
