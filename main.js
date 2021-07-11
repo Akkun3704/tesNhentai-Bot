@@ -56,7 +56,7 @@ bot.on('text', async lintod => {
       const title = doujin.titles.pretty
 
       for (let index = 0; index < array_page.length; index++) {
-        image_name = "nhentai/" + title + index + ".jpg"
+        const image_name = "nhentai/" + title + index + ".jpg"
         await new Promise((resolve) => request(array_page[index]).pipe(fs.createWriteStream(image_name)).on('finish', resolve))
         console.log(array_page[index].url);
 
