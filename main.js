@@ -76,7 +76,7 @@ bot.on('text', async lintod => {
         })
       }
 
-      size = await fs.statSync(`nhentai/${title}.pdf`).size
+      const size = await fs.statSync(`nhentai/${title}.pdf`).size
       if (size < 45000000) {
         lintod.reply("uploading");
         await lintod.replyWithDocument({
