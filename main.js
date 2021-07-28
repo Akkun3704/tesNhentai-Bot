@@ -16,11 +16,8 @@ function sendStart(ctx) {
       reply_markup: {
         inline_keyboard: [
           [{
-            text: 'Owner ♥️', url: 'http://t.me/linlxn8'
-          },
-            {
-              text: 'Donate ☕', url: 'https://trakteer.id/lintodamamiya'
-            }]
+            text: 'Owner ♥️', url: 'http://t.me/akkun0307'
+          }]
         ]
       },
       parse_mode: "Markdown"
@@ -54,6 +51,21 @@ bot.on('text', async lintod => {
       const doujin = await get_result.fetchDoujin(id);
       const array_page = doujin.pages
       const title = doujin.titles.pretty
+      
+      res = await axios.get('http://lolhuman.herokuapp.com/api/nhentai/' + id + '?apikey=genbotkey')
+      data = res.data.result
+      caption = `${data.title_romaji}\n\n`
+      caption += `${data.title_native}\n\n`
+      caption += `Parodies : ${data.info.parodies}\n\n`
+      caption += `Character : ${data.info.characters.join(", ")}\n\n`
+      caption += `Tags : ${data.info.tags.join(", ")}\n\n`
+      caption += `Artists : ${data.info.artists}\n\n`
+      caption += `Groups : ${data.info.groups}\n\n`
+      caption += `Languages : ${data.info.languages}\n\n`
+      caption += `Categories : ${data.info.categories}\n\n`
+      caption += `Pages : ${data.info.pages}\n\n`
+      caption += `Uploaded : ${data.info.uploaded}\n`
+      await lintod.replyWithPhoto({ url: data.image[0] }, { caption: caption, parse_mode: "Markdown" })
 
       for (let index = 0; index < array_page.length; index++) {
         const image_name = "nhentai/" + title + index + ".jpg"
@@ -78,7 +90,7 @@ bot.on('text', async lintod => {
 
       const size = await fs.statSync(`nhentai/${title}.pdf`).size
       if (size < 45000000) {
-        lintod.reply("uploading");
+        lintod.reply("Sending document...");
         await lintod.replyWithDocument({
           source: `nhentai/${title}.pdf`, filename: `${title}.pdf`
         })
@@ -107,7 +119,7 @@ bot.on('text', async lintod => {
           fs.unlink(`nhentai/${title}.pdf`, (err) => {
             if (err) throw err
           })
-          lintod.reply("link download to file : " + JSON.parse(body).data.file.url.full);
+          lintod.reply("Link download to file : " + JSON.parse(body).data.file.url.full);
         })
       }
     } catch (error) {
