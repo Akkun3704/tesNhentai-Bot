@@ -59,6 +59,7 @@ function sendMessageping(ctx){
 	tmenu += ` ❒ _Speed_  *${latensi.toFixed(4)}* _Second_🚀`
 	bot.telegram.sendMessage(ctx.chat.id, tmenu)
 })
+}
 
 bot.start((ctx) => {
   sendStart(ctx)
