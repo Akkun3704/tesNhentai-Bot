@@ -3,7 +3,10 @@ const nhentai = require("nhentai");
 const request = require("request");
 const topdf = require("image-to-pdf");
 const fs = require("fs");
+const os = require("os");
 const chalk = require("chalk");
+const speed = require("performance-now");
+const moment = require("moment-timezone");
 const { Telegraf } = require("telegraf");
 
 const bot = new Telegraf("1929357866:AAHIp1ukgjz50AFhCzXedn17JzZMModXsus"); // get token in BotFather Telegram
@@ -27,12 +30,46 @@ function sendStart(ctx) {
     })
 }
 
+function sendMessageping(ctx){
+	function format(seconds){
+		function pad(s){
+			return (s < 10 ? `0` : ``) + s;
+		}
+		var hours = Math.floor(seconds / (60*60));
+		var minutes = Math.floor(seconds % (60*60) / 60);
+		var seconds = Math.floor(seconds % 60);
+		
+	return pad(hours) + ` H,` + pad(minutes) + ` M,` + pad(seconds) + ` S`;
+		}
+		
+	var uptime = process.uptime();
+	let timestamp = speed();
+	let latensi = speed() - timestamp
+	let tutid = moment().millisecond()
+	var tmenu = `.....:𝐈𝐍𝐅𝐎 𝐁𝐎𝐓:.....\n`
+	tmenu += `-----｢ 𝐒𝐞𝐫𝐯𝐞𝐫 𝐈𝐧𝐟𝐨 ｣-----\n`
+	tmenu += `➪ *Host* : _${os.hostname()}_\n`
+	tmenu += `➪ *Platfrom* : _${os.platform()}_\n`
+	tmenu += `➪ *CPU* : _${os.cpus()[0].model}_\n`
+	tmenu += `➪ *Speed* : _${os.cpus()[0].speed} MHz_\n`
+	tmenu += `➪ *Core* : _${os.cpus().length}_\n`
+	tmenu += `➪ *Penggunaan RAM* : _${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB / ${Math.round(require(`os`).totalmem / 1024 / 1024)}MB_\n\n`
+	tmenu += ` ❒ Ping : *${tutid}MS*\n`
+	tmenu += ` ❒ Runtime : *${format(uptime)}*\n`
+	tmenu += ` ❒ _Speed_  *${latensi.toFixed(4)}* _Second_🚀`
+	bot.telegram.sendMessage(ctx.chat.id, tmenu)
+})
+
 bot.start((ctx) => {
   sendStart(ctx)
 })
 
 bot.command("help", async ctx => {
   sendStart(ctx)
+})
+
+bot.command("ping", async ctx => {
+	sendMessageping(ctx)
 })
 
 bot.command("ytmp3", async (ctx) => {
@@ -52,17 +89,18 @@ bot.command("ytmp3", async (ctx) => {
         if(!data){
             ctx.reply("Music not found")
         }else{
-        	capt = `${data.title} by ${data.uploader}\n\n`
+        	capt = `Title : ${data.title}`
+        capt += `By : ${data.uploader}\n`
         capt += `Duration : ${data.duration}\n`
         capt += `View : ${data.view}\n`
-        capt += `Like : $data.like}\n`
+        capt += `Like : ${data.like}\n`
         capt += `Dislike : ${data.dislike}\n`
         capt += `Size : ${data.link.size}\n`
         ctx.replyWithPhoto({url: data.thumbnail}, {caption: capt})
         if (Number(data.link.size.split(` MB`)[0]) >= 25.00) return ctx.reply("Sorry the bot cannot send more than 25 MB!")
         ctx.reply("Wait, audio is being sent")
         // console.log(data.link[0].link)
-        ctx.replyWithAudio({ url: data.link.link}, {title: data.title, thumb: data.thumbnail, artist: data.title})
+        ctx.replyWithAudio({ url: data.link.link, filename: data.title }, { thumb: data.thumbnail, artist: data.uploader})
         } 
     }
     } catch(e) {
@@ -164,8 +202,8 @@ bot.on('text', async lintod => {
       console.log(error);
     }
   } else if (body && !body.match(/^[0-9]/)) {
-  	simih = await axios.get("https://fdciabdul.tech/api/ayla/?pesan=" + encodeURI(body))
-  await lintod.reply(simih.data.jawab);
+  	simih = await axios.get("https://zenzapi.xyz/api/simih?text=" + encodeURI(body) + "&apikey=Nyarlathotep")
+  await lintod.reply(simih.data.result.message);
   }
 })
 

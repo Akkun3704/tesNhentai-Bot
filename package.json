@@ -7,13 +7,16 @@
         "test": "test"
     },
     "dependencies": {
-        "telegraf": "*",
         "axios": "^0.21.1",
         "chalk": "*",
-        "nhentai": "*",
+        "fs": "*",
         "image-to-pdf": "*",
+        "moment-timezone": "*",
+        "nhentai": "*",
+        "os": "*",
+        "performance-now": "*",
         "request": "*",
-        "fs": "*"
+        "telegraf": "*"
     },
     "devDependencies": {},
     "scripts": {
