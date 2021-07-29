@@ -129,7 +129,7 @@ bot.command("eval", async (msg) => {
 	let argu = inputArray.join(" ")
 	if (!argu) return
 	try{
-		msg.reply(JSON.stringify(eval(argu), null, '\t')
+		msg.reply(JSON.stringify(eval(argu), null, '\t'))
 	} catch (e) {
 		msg.reply(util.format(e))
 	}
