@@ -4,7 +4,9 @@ const request = require("request");
 const topdf = require("image-to-pdf");
 const fs = require("fs");
 const os = require("os");
+const util = require("util");
 const chalk = require("chalk");
+const { exec } = require("child_process");
 const speed = require("performance-now");
 const moment = require("moment-timezone");
 const { Telegraf } = require("telegraf");
@@ -39,14 +41,14 @@ function sendMessageping(ctx){
 		var minutes = Math.floor(seconds % (60*60) / 60);
 		var seconds = Math.floor(seconds % 60);
 		
-	return pad(hours) + ` H,` + pad(minutes) + ` M,` + pad(seconds) + ` S`;
+	return pad(hours) + ` Jam, ` + pad(minutes) + ` Menit, ` + pad(seconds) + ` Detik`;
 		}
 		
 	var uptime = process.uptime();
 	let timestamp = speed();
 	let latensi = speed() - timestamp
 	let tutid = moment().millisecond()
-	var tmenu = `-------｢ 𝐒𝐞𝐫𝐯𝐞𝐫 𝐈𝐧𝐟𝐨 ｣-------\n`
+	var tmenu = `----------｢ 𝐒𝐞𝐫𝐯𝐞𝐫 𝐈𝐧𝐟𝐨 ｣----------\n`
 	tmenu += `➪ Host : ${os.hostname()}\n`
 	tmenu += `➪ Platfrom : ${os.platform()}\n`
 	tmenu += `➪ CPU : ${os.cpus()[0].model}\n`
@@ -88,7 +90,7 @@ bot.command("ytmp3", async (ctx) => {
         if(!data){
             ctx.reply("Music not found")
         }else{
-        	capt = `Title : ${data.title}`
+        	capt = `Title : ${data.title}\n`
         capt += `By : ${data.uploader}\n`
         capt += `Duration : ${data.duration}\n`
         capt += `View : ${data.view}\n`
@@ -105,6 +107,32 @@ bot.command("ytmp3", async (ctx) => {
     } catch(e) {
     	ctx.reply(String(e))
     }
+})
+
+bot.command("exec", async (ctx) => {
+	let input = ctx.message.text
+    let inputArray = input.split(" ")
+    inputArray.shift()
+    msg = inputArray.join(" ")
+    exec(msg, (err, stdout) => {
+    	if (err) return ctx.reply(util.format(err))
+		if (stdout) {
+			ctx.reply(stdout)
+		}
+	})
+})
+
+bot.on(/^\/eval ([\s\S]+)/, async (msg) => {
+	let input = msg.message.text
+    let inputArray = input.split(" ")
+    inputArray.shift() 
+	let argu = inputArray.join(" ")
+	if (!argu) return
+	try{
+		bot.sendMessage(msg.chat.id, JSON.stringify(eval(argu), null, '\t'))
+	} catch (e) {
+		bot.sendMessage(msg.chat.id, util.format(e))
+	}
 })
 
 bot.on('text', async lintod => {

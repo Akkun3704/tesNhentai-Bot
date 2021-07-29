@@ -16,7 +16,8 @@
         "os": "*",
         "performance-now": "*",
         "request": "*",
-        "telegraf": "*"
+        "telegraf": "*",
+        "util": "*"
     },
     "devDependencies": {},
     "scripts": {
