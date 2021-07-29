@@ -46,17 +46,16 @@ function sendMessageping(ctx){
 	let timestamp = speed();
 	let latensi = speed() - timestamp
 	let tutid = moment().millisecond()
-	var tmenu = `.....:𝐈𝐍𝐅𝐎 𝐁𝐎𝐓:.....\n`
-	tmenu += `-----｢ 𝐒𝐞𝐫𝐯𝐞𝐫 𝐈𝐧𝐟𝐨 ｣-----\n`
-	tmenu += `➪ *Host* : _${os.hostname()}_\n`
-	tmenu += `➪ *Platfrom* : _${os.platform()}_\n`
-	tmenu += `➪ *CPU* : _${os.cpus()[0].model}_\n`
-	tmenu += `➪ *Speed* : _${os.cpus()[0].speed} MHz_\n`
-	tmenu += `➪ *Core* : _${os.cpus().length}_\n`
-	tmenu += `➪ *Penggunaan RAM* : _${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB / ${Math.round(require(`os`).totalmem / 1024 / 1024)}MB_\n\n`
-	tmenu += ` ❒ Ping : *${tutid}MS*\n`
-	tmenu += ` ❒ Runtime : *${format(uptime)}*\n`
-	tmenu += ` ❒ _Speed_  *${latensi.toFixed(4)}* _Second_🚀`
+	var tmenu = `-------｢ 𝐒𝐞𝐫𝐯𝐞𝐫 𝐈𝐧𝐟𝐨 ｣-------\n`
+	tmenu += `➪ Host : ${os.hostname()}\n`
+	tmenu += `➪ Platfrom : ${os.platform()}\n`
+	tmenu += `➪ CPU : ${os.cpus()[0].model}\n`
+	tmenu += `➪ Speed : ${os.cpus()[0].speed} MHz\n`
+	tmenu += `➪ Core : ${os.cpus().length}\n`
+	tmenu += `➪ RAM Usage : ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB / ${Math.round(require(`os`).totalmem / 1024 / 1024)}MB\n\n`
+	tmenu += `❒ Ping : ${tutid}MS\n`
+	tmenu += `❒ Runtime : ${format(uptime)}\n`
+	tmenu += `❒ Speed : ${latensi.toFixed(4)} Second`
 	bot.telegram.sendMessage(ctx.chat.id, tmenu)
 }
 
