@@ -35,6 +35,41 @@ bot.command("help", async ctx => {
   sendStart(ctx)
 })
 
+bot.command("ytmp3", async (ctx) => {
+	try{
+    let input = ctx.message.text
+    let inputArray = input.split(" ")
+    let message = "";
+    
+    if(inputArray.length == 1){
+        ctx.reply("Please enter a link, an example /ytmp3 https://www.youtube.com/watch?v=U5TkJ2HhMEw&list=RDen9KJdbrZj0&index=27")
+    }else{
+        ctx.reply("Wait, the bot is being searched")
+        inputArray.shift();
+        messager = inputArray.join(" ")
+        res = await axios.get("http://lolhuman.herokuapp.com/api/ytaudio?apikey=genbotkey&url=" + messager)
+        data = res.data.result
+        if(!data){
+            ctx.reply("Music not found")
+        }else{
+        	capt = `${data.title} by ${data.uploader}\n\n`
+        capt += `Duration : ${data.duration}\n`
+        capt += `View : ${data.view}\n`
+        capt += `Like : $data.like}\n`
+        capt += `Dislike : ${data.dislike}\n`
+        capt += `Size : ${data.link.size}\n`
+        ctx.replyWithPhoto({url: data.thumbnail}, {caption: capt})
+        if (Number(data.link.size.split(` MB`)[0]) >= 25.00) return ctx.reply("Sorry the bot cannot send more than 25 MB!")
+        ctx.reply("Wait, audio is being sent")
+        // console.log(data.link[0].link)
+        ctx.replyWithAudio({ url: data.link.link}, {title: data.title, thumb: data.thumbnail, artist: data.title})
+        } 
+    }
+    } catch(e) {
+    	ctx.reply(String(e))
+    }
+})
+
 bot.on('text', async lintod => {
   let body = lintod.update.message.text || ''
   let id = body
@@ -124,13 +159,13 @@ bot.on('text', async lintod => {
         })
       }
     } catch (error) {
-      lintod.reply("No Dōjinshi found");
+      lintod.reply(String(error));
       console.log("No Dōjinshi found");
       console.log(error);
     }
   } else if (body && !body.match(/^[0-9]/)) {
-  	simih = await axios.get("https://zenzapi.xyz/api/simih?text=" + encodeURI(body) + "&apikey=Nyarlathotep")
-  await lintod.reply(simih.data.result.message);
+  	simih = await axios.get("https://fdciabdul.tech/api/ayla/?pesan=" + encodeURI(body))
+  await lintod.reply(simih.data.jawab);
   }
 })
 
