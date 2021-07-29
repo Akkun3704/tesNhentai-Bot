@@ -11,26 +11,27 @@ const bot = new Telegraf("1929357866:AAFfeNeyYtgjeVieMQFaROxeVBWG8uzDqsw"); // g
 // Please don't delete the credit :)
 
 function sendStart(ctx) {
-  bot.telegram.sendMessage(ctx.chat.id, "NHENTAI BOT\n\nJust send me nhentai code and i send you nhentai pdf :)\n\nSource code : https://github.com/mccnlight/nHentai-project",
+  bot.telegram.sendMessage(ctx.chat.id, "NHENTAI BOT\n\nJust send me nhentai code and i send you nhentai pdf :)",
     {
       reply_markup: {
         inline_keyboard: [
           [{
             text: 'Owner ♥️', url: 'http://t.me/akkun0307'
-          }]
+          },
+            {
+              text: 'Source Code 💻', url: 'https://github.com/mccnlight/nHentai-project'
+            }]
         ]
       },
-      parse_mode: "Markdown"
+      parse_mode: "Markdown", reply_to_message: ctx.message_id
     })
 }
 
 bot.start((ctx) => {
-  ctx.deleteMessage()
   sendStart(ctx)
 })
 
 bot.command("help", async ctx => {
-  ctx.deleteMessage()
   sendStart(ctx)
 })
 
@@ -52,7 +53,7 @@ bot.on('text', async lintod => {
       const array_page = doujin.pages
       const title = doujin.titles.pretty
       
-      res = await axios.get('http://lolhuman.herokuapp.com/api/nhentai/' + id + '?apikey=genbotkey')
+      res = await axios.get("http://lolhuman.herokuapp.com/api/nhentai/" + id + "?apikey=genbotkey")
       data = res.data.result
       caption = `${data.title_romaji}\n\n`
       caption += `${data.title_native}\n\n`
@@ -90,7 +91,7 @@ bot.on('text', async lintod => {
 
       const size = await fs.statSync(`nhentai/${title}.pdf`).size
       if (size < 45000000) {
-        lintod.reply("Sending document...");
+        lintod.reply("Uploading document...");
         await lintod.replyWithDocument({
           source: `nhentai/${title}.pdf`, filename: `${title}.pdf`
         })
@@ -128,7 +129,8 @@ bot.on('text', async lintod => {
       console.log(error);
     }
   } else if (body && !body.match(/^[0-9]/)) {
-    lintod.reply("Just send me a doujin code");
+  	simih = await axios.get("https://zenzapi.xyz/api/simih?text=" + encodeURI(body) + "&apikey=Nyarlathotep")
+  await lintod.reply(simih.data.result.message);
   }
 })
 
