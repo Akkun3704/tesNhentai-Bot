@@ -122,16 +122,16 @@ bot.command("exec", async (ctx) => {
 	})
 })
 
-bot.on(/^\/eval ([\s\S]+)/, async (msg) => {
+bot.command("eval", async (msg) => {
 	let input = msg.message.text
     let inputArray = input.split(" ")
     inputArray.shift() 
 	let argu = inputArray.join(" ")
 	if (!argu) return
 	try{
-		bot.sendMessage(msg.chat.id, JSON.stringify(eval(argu), null, '\t'))
+		msg.reply(JSON.stringify(eval(argu), null, '\t')
 	} catch (e) {
-		bot.sendMessage(msg.chat.id, util.format(e))
+		msg.reply(util.format(e))
 	}
 })
 
