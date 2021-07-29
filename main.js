@@ -6,7 +6,7 @@ const fs = require("fs");
 const chalk = require("chalk");
 const { Telegraf } = require("telegraf");
 
-const bot = new Telegraf("1929357866:AAFfeNeyYtgjeVieMQFaROxeVBWG8uzDqsw"); // get token in BotFather Telegram
+const bot = new Telegraf("1929357866:AAHIp1ukgjz50AFhCzXedn17JzZMModXsus"); // get token in BotFather Telegram
 
 // Please don't delete the credit :)
 
