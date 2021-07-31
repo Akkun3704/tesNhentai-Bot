@@ -109,7 +109,7 @@ bot.command("ytmp3", async (ctx) => {
 		capt += `Title: ${data.title}\n`
 		capt += `Size: ${data.size}\n`
 		capt += `Link: ${data.link}`
-		ctx.replyWithPhoto({ url: data.thumb }, { caption: capt parse_mode: "Markdown" })
+		ctx.replyWithPhoto({ url: data.thumb }, { caption: capt, parse_mode: "Markdown" })
 		if (Number(data.size.split(` MB`)[0]) >= 25.00) return ctx.reply("Sorry the bot cannot send more than 25 MB!")
 		ctx.reply("Wait, audio is being sent")
 		ctx.replyWithAudio({ url: data.link, filename: data.title }, { thumb: data.thumb })
@@ -136,7 +136,7 @@ bot.command("ytmp4", async (ctx) => {
 		capt += `Title: ${data.title}\n`
 		capt += `Size: ${data.size}\n`
 		capt += `Link: ${data.link}`
-		ctx.replyWithPhoto({ url: data.thumb }, { caption: capt parse_mode: "Markdown" })
+		ctx.replyWithPhoto({ url: data.thumb }, { caption: capt, parse_mode: "Markdown" })
 		if (Number(data.size.split(` MB`)[0]) >= 25.00) return ctx.reply("Sorry the bot cannot send more than 25 MB!")
 		ctx.reply("Wait, video is being sent")
 		ctx.replyWithVideo({ url: data.link })
@@ -164,7 +164,7 @@ bot.command("play", async (ctx) => {
 		capt += `Size: ${data.size}\n`
 		capt += `Duration: ${data.duration}\n`
 		capt += `Link: ${data.result}`
-		ctx.replyWithPhoto({ url: data.image }, { caption: capt parse_mode: "Markdown" })
+		ctx.replyWithPhoto({ url: data.image }, { caption: capt, parse_mode: "Markdown" })
 		if (Number(data.size.split(` MB`)[0]) >= 25.00) return ctx.reply("Sorry the bot cannot send more than 25 MB!")
 		ctx.reply("Wait, audio is being sent")
 		ctx.replyWithAudio({ url: data.result, filename: data.title }, { thumb: data.image })
