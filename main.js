@@ -72,7 +72,7 @@ function sendMessageping(ctx){
 	bot.telegram.sendMessage(ctx.chat.id, tmenu)
 }
 
-function getArgs = async(ctx) => {
+async function getArgs(ctx) {
 	try {
 		args = ctx.message.text
 		args = args.split(" ")
