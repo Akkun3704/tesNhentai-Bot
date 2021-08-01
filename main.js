@@ -84,12 +84,14 @@ async function getArgs(ctx) {
 bot.start((ctx) => {
 	sendStart(ctx)
 })
-
-bot.command(/^(help|menu)$/i, async ctx => {
+bot.command("help", async ctx => {
+	sendMenu(ctx)
+})
+bot.command("menu", async ctx => {
 	sendMenu(ctx)
 })
 
-bot.command(/^(p|ping)$/i, async ctx => {
+bot.command("ping", async ctx => {
 	sendMessageping(ctx)
 })
 
